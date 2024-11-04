@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 22:08:19 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:35:32 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void Map::drawBoard()
 			else if (init_map[i][k] == 'D')
 				mapSquares[i][k].setFillColor(sf::Color(181, 170, 158));
 			else if (init_map[i][k] == 'K')
-				mapSquares[i][k].setFillColor(sf::Color(255, 215, 0));
+				mapSquares[i][k].setFillColor(sf::Color(178, 130, 107));
 			else if (init_map[i][k] == '0')
 				mapSquares[i][k].setFillColor(sf::Color(149, 138, 126));
 			else if (init_map[i][k] == 'C')
@@ -67,8 +67,8 @@ void Map::drawPieces()
 			if (curr_map[i][k] == 'A' || curr_map[i][k] == 'a')
 			{
 				attackers[attackerIndex].setRadius(40);
-				attackers[attackerIndex].setFillColor(sf::Color(51, 0, 6));
-				attackers[attackerIndex].setOutlineColor(sf::Color(149, 200, 219));
+				attackers[attackerIndex].setFillColor(sf::Color(149, 200, 219));
+				attackers[attackerIndex].setOutlineColor(sf::Color(51, 0, 6));
 				attackers[attackerIndex].setOutlineThickness(5);
 				attackers[attackerIndex].setPosition(58 + k * 100, 58 + i * 100); //50 for edge of board, 8 to center pieces based on the square outlines being 4 on each side
 				mapWindow->draw(attackers[attackerIndex]);
