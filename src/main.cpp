@@ -6,6 +6,9 @@ int main()
     window.setFramerateLimit(144);
 	Map gameMap(&window);
 	bool pieceSelected {false};
+	
+
+	enum whoseTurn turn = Attacker;
 	int sel_x {-1};
 	int sel_y {-1};
     while (window.isOpen())
@@ -24,9 +27,9 @@ int main()
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
 						if (!pieceSelected)
-							pieceSelected = gameMap.highlightSquare(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y);
-						else
-							pieceSelected = gameMap.tryMove(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y);
+							pieceSelected = gameMap.highlightSquare(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn);
+						else if (pieceSelected)
+							pieceSelected = gameMap.tryMove(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn);
 					}
 					else if (event.mouseButton.button == sf::Mouse::Right)
 					{

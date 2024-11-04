@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:03:10 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 18:16:42 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:29:32 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ public:
 	void checkCapture(int x, int y);
 	void drawBoard(void);
 	void drawPieces(void);
-	bool tryMove(int x, int y, int& sel_x, int& sel_y);
-	bool highlightSquare(int x, int y, int& sel_x, int& sel_y);
+	bool tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn);
+	bool highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn);
 	void highlightLegalMoves(int x, int y);
 	bool unhighlightSquare(int& sel_x, int& sel_y);
 	~Map();

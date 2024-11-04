@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 19:03:36 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:40:52 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,22 @@ void Map::highlightLegalMoves(int x, int y)
 	//add visual indicators later	
 }
 
-bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y)
+bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
 {
 	int map_x {(x - 50) / 100};
 	int map_y {(y - 50) / 100};
 	
 	if (map_x > 8 || map_y > 8 || curr_map[map_y][map_x] == '0')
-		return 0;
-	curr_map[map_y][map_x] = std::tolower(curr_map[map_y][map_x]);
-	highlightLegalMoves(map_x, map_y);
-	sel_x = map_x;
-	sel_y = map_y;
-	return 1;
+		return false;
+	if ((turn == Attacker && curr_map[map_y][map_x] == 'A') || (turn == Defender && (curr_map[map_y][map_x] == 'D' || curr_map[map_y][map_x] == 'K'))) 
+		curr_map[map_y][map_x] = std::tolower(curr_map[map_y][map_x]);
+	{
+		highlightLegalMoves(map_x, map_y);
+		sel_x = map_x;
+		sel_y = map_y;
+		return true;
+	}
+	return false;
 	//std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
 	//mapWindow->draw(mapSquares[map_y][map_x]);
 }
@@ -359,13 +363,16 @@ void Map::checkCapture(int x, int y)
 	
 }*/
 
-bool Map::tryMove(int x, int y, int& sel_x, int& sel_y)
+bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
 {
 	int map_x {(x - 50) / 100};
 	int map_y {(y - 50) / 100};
 	
 	if (sel_x < 0 || sel_y < 0 || sel_y > 8 || sel_x > 8 || map_x < 0 || map_y < 0 || map_x > 8 || map_y > 8)
-		return (1);
+		return (true);
+	if ((curr_map[sel_y][sel_x] == 'A' || curr_map[sel_y][sel_x] == 'a' && turn == Defender)
+		|| ((curr_map[sel_y][sel_x] == 'D' || curr_map[sel_y][sel_x] == 'd' || curr_map[sel_y][sel_x] == 'K' || curr_map[sel_y][sel_x] == 'k') && turn == Attacker))
+		return (false);
 	std::cout << "map_x: " << map_x << " map_y: "<< map_y << " sel_x: " << sel_x << " sel_y: " << sel_y << std::endl;
 	if ((map_x == sel_x || map_y == sel_y) && (curr_map[map_y][map_x] == '0' || curr_map[map_y][map_x] == 'C'))
 	{
@@ -379,6 +386,17 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y)
 		checkDefenderVictory(map_x, map_y);
 		checkAttackerVictory(map_x, map_y);
 		checkCapture(map_x, map_y);
+		if (turn == Attacker)
+		{
+			std::cout << "Defender's turn now" << std::endl;
+			turn = Defender;
+		}
+		else if (turn == Defender)
+		{
+			std::cout << "Attacker's turn now" << std::endl;
+			turn = Attacker;
+		}
+			
 		return (0);
 	}
 	else 
