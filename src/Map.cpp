@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 16:48:05 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:13:17 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,113 @@ bool Map::unhighlightSquare(int& sel_x, int& sel_y)
 	//mapWindow->draw(mapSquares[map_y][map_x]);
 }
 
+bool Map::checkDefenderVictory(int x, int y)
+{
+	if (x >= 0 && y >= 0 && x < 9 && y < 9)
+	{
+		if (curr_map[y][x] == 'K' || curr_map[y][x] == 'k')
+		{
+			if (init_map[y][x] == 'C')
+			{
+				std::cout << "Defender wins! Long live the King!" << std::endl;
+				exit(0);
+			}
+		}
+		return false;
+	}
+	return false;
+}
+
+// pass this the king location after an attacker move.
+bool Map::checkAttackerVictory(int x, int y)
+{
+	//Find King
+	int i = 0;
+	int k = 0;
+
+	while (i < 9)
+	{
+		while (k < 9)
+		{
+			if (curr_map[i][k] == 'K' || curr_map[i][k] == 'k')
+			{
+				x = k;
+				y = i;
+				break;
+			}
+			k++;
+		}
+		k = 0;
+		i++;
+	}
+	//check if King is surrounded
+			bool kingSurrounded = false;
+			if (x == 0)
+			{
+				if ((curr_map[y][x + 1] == 'A' || curr_map[y][x + 1] == 'a')
+					&& (curr_map[y + 1][x] == 'A' || curr_map[y + 1][x] == 'a')
+					&& (curr_map[y - 1][x] == 'A' || curr_map[y-1][x] == 'a'))
+					kingSurrounded = true;
+			}
+			else if (x == 8)
+			{
+				if ((curr_map[y][x - 1] == 'A' || curr_map[y][x - 1] == 'a')
+					&& (curr_map[y + 1][x] == 'A' || curr_map[y + 1][x] == 'a')
+					&& (curr_map[y - 1][x] == 'A' || curr_map[y-1][x] == 'a'))
+					kingSurrounded = true;
+			}
+			else if (y == 0)
+			{
+				if ((curr_map[y][x - 1] == 'A' || curr_map[y][x - 1] == 'a')
+					&& (curr_map[y][x + 1] == 'A' || curr_map[y][x + 1] == 'a')
+					&& (curr_map[y + 1][x] == 'A' || curr_map[y + 1][x] == 'a'))
+					kingSurrounded = true;
+			}
+			else if (y == 8)
+			{
+				if ((curr_map[y][x - 1] == 'A' || curr_map[y][x - 1] == 'a')
+					&& (curr_map[y][x + 1] == 'A' || curr_map[y][x + 1] == 'a')
+					&& (curr_map[y - 1][x] == 'A' || curr_map[y-1][x] == 'a'))
+					kingSurrounded = true;
+			}
+			else
+			{
+				if ((curr_map[y][x - 1] == 'A' || curr_map[y][x - 1] == 'a')
+					&& (curr_map[y][x + 1] == 'A' || curr_map[y][x + 1] == 'a')
+					&& (curr_map[y - 1][x] == 'A' || curr_map[y-1][x] == 'a')
+					&& (curr_map[y + 1][x] == 'A' || curr_map[y + 1][x] == 'a'))
+					kingSurrounded = true;
+			}
+			if (kingSurrounded)
+			{
+				std::cout << "The attackers have overthrown the king and win the game." << std::endl;
+				exit(0);
+			}
+			else
+				return (kingSurrounded);
+}
+
+bool Map::checkCapture(int x, int y)
+{
+	//attacker moved
+	if (x > 8 || x < 0 || y > 8 || y < 0)
+		return false;
+	else
+		std::cout << "We must have valid inputs" << std::endl;
+	
+	
+			//if (kingDetected)
+			//	checkAttackerVictory(x, y);
+}
+	//defender moved
+	/*else if (curr_map[y][x] == 'D' || curr_map[y][x] == 'd'
+		|| curr_map[y][x] == 'k' || curr_map[y][x] == 'k')
+	{
+		
+	}
+	
+}*/
+
 bool Map::tryMove(int x, int y, int& sel_x, int& sel_y)
 {
 	int map_x {(x - 50) / 100};
@@ -150,6 +257,9 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y)
 		else
 			curr_map[sel_y][sel_x] = '0';
 		//unhighlightSquare(sel_x, sel_y);
+		checkDefenderVictory(map_x, map_y);
+		checkAttackerVictory(map_x, map_y);
+		//checkCapture(map_x, map_y);
 		return (0);
 	}
 	else 
