@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 18:55:01 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 19:03:36 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,60 +289,60 @@ void Map::checkCapture(int x, int y)
 		}
 		
 	}
-	else if (curr_map[y][x] == 'D' || curr_map[y][x] == 'd')
+	else if (curr_map[y][x] == 'D' || curr_map[y][x] == 'd' || curr_map[y][x] == 'K' || curr_map[y][x] == 'k')
 	{
 		//check left
 		if (x > 1 && (curr_map[y][x - 1] == 'A' || curr_map[y][x - 1] == 'a')
-			&& (curr_map[y][x - 2] == 'D' || curr_map[y][x - 2] == 'd'))
+			&& (curr_map[y][x - 2] == 'D' || curr_map[y][x - 2] == 'd' || curr_map[y][x - 2] == 'K' || curr_map[y][x-2] == 'k'))
 			{
 				std::cout << "Capturing to the left" << std::endl;
 				curr_map[y][x - 1] = '0';
 			}
 		//check right
 		if (x < 7 && (curr_map[y][x + 1] == 'A' || curr_map[y][x + 1] == 'a')
-			&& (curr_map[y][x+2] == 'D' || curr_map[y][x+2] == 'D'))
+			&& (curr_map[y][x+2] == 'D' || curr_map[y][x+2] == 'D' || curr_map[y][x+2] == 'K' || curr_map[y][x+2] == 'k'))
 			{
 				std::cout << "Capturing to the right" << std::endl;
 				curr_map[y][x + 1] = '0';
 			}
 		//look up
 		if (y > 1 && (curr_map[y - 1][x] == 'A' || curr_map[y - 1][x] == 'a')
-			&& (curr_map[y-2][x] == 'D' || curr_map[y-2][x] == 'D'))
+			&& (curr_map[y-2][x] == 'D' || curr_map[y-2][x] == 'D' || curr_map[y-2][x] == 'K' || curr_map[y-2][x] == 'k'))
 			{
 				std::cout << "Capturing up" << std::endl;
 				curr_map[y-1][x] = '0';
 			}
 		//look down
 		if (y < 7 && (curr_map[y + 1][x] == 'A' || curr_map[y + 1][x] == 'a')
-			&& (curr_map[y + 2][x] == 'D' || curr_map[y + 2][x] == 'd'))
+			&& (curr_map[y + 2][x] == 'D' || curr_map[y + 2][x] == 'd' || curr_map[y+2][x] == 'K' || curr_map[y+2][x] == 'k'))
 			{
 				std::cout << "Capturing down" << std::endl;
 				curr_map[y + 1][x] = '0';
 			}
 		//corner cases
-		if (((y == 1 && x == 0) && (curr_map[0][1] == 'D' || curr_map[0][1] == 'd'))
-			|| ((y == 0 && x == 1) && (curr_map[1][0] == 'D' || curr_map[1][0] == 'd'))
+		if (((y == 1 && x == 0) && (curr_map[0][1] == 'D' || curr_map[0][1] == 'd' || curr_map[0][1] == 'K' || curr_map[0][1] == 'k'))
+			|| ((y == 0 && x == 1) && (curr_map[1][0] == 'D' || curr_map[1][0] == 'd' || curr_map[1][0] == 'K' || curr_map[1][0] == 'k'))
 			&& (curr_map[0][0] == 'A' || curr_map[0][0] == 'a')) 
 		{
 				std::cout << "Northwest corner captured" << std::endl;
 				curr_map[0][0] = 'C';
 		}
-		if (((y == 1 && x == 8) && (curr_map[0][7] == 'D' || curr_map[0][7] == 'd'))
-			|| ((y == 0 && x == 7) && (curr_map[1][8] == 'D' || curr_map[1][8] == 'd'))
+		if (((y == 1 && x == 8) && (curr_map[0][7] == 'D' || curr_map[0][7] == 'd' || curr_map[0][7] == 'K' || curr_map[0][7] == 'k'))
+			|| ((y == 0 && x == 7) && (curr_map[1][8] == 'D' || curr_map[1][8] == 'd' || curr_map[1][8] == 'K' || curr_map[1][8] == 'k'))
 			&& (curr_map[0][8] == 'A' || curr_map[0][8] == 'a')) 
 		{
 				std::cout << "Northeast corner captured" << std::endl;
 				curr_map[0][8] = 'C';
 		}
-		if (((y == 8 && x == 7) && (curr_map[7][8] == 'D' || curr_map[7][8] == 'd'))
-			|| ((y == 7 && x == 8) && (curr_map[8][7] == 'D' || curr_map[8][7] == 'd'))
+		if (((y == 8 && x == 7) && (curr_map[7][8] == 'D' || curr_map[7][8] == 'd' || curr_map[7][8] == 'K' || curr_map[7][8] == 'k'))
+			|| ((y == 7 && x == 8) && (curr_map[8][7] == 'D' || curr_map[8][7] == 'd' || curr_map[8][7] == 'K' || curr_map[8][7] == 'k'))
 			&& (curr_map[8][8] == 'A' || curr_map[8][8] == 'a')) 
 		{
 				std::cout << "Southeast corner captured" << std::endl;
 				curr_map[8][8] = 'C';
 		}
-		if (((y == 8 && x == 1) && (curr_map[7][0] == 'D' || curr_map[7][0] == 'd'))
-			|| ((y == 7 && x == 0) && (curr_map[8][1] == 'D' || curr_map[8][1] == 'd'))
+		if (((y == 8 && x == 1) && (curr_map[7][0] == 'D' || curr_map[7][0] == 'd' || curr_map[7][0] == 'K' || curr_map[7][0] == 'k'))
+			|| ((y == 7 && x == 0) && (curr_map[8][1] == 'D' || curr_map[8][1] == 'd' || curr_map[8][1] == 'K' || curr_map[8][1] == 'k'))
 			&& (curr_map[8][0] == 'A' || curr_map[8][0] == 'a')) 
 		{
 				std::cout << "Southwest corner captured" << std::endl;
