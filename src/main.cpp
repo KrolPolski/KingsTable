@@ -1,10 +1,10 @@
-#include <SFML/Graphics.hpp>
+#include "KingsTable.hpp"
 
 int main()
 {
-    auto window = sf::RenderWindow({1920u, 1080u}, "CMake SFML Project");
+    auto window = sf::RenderWindow({1920u, 1080u}, "King's Table");
     window.setFramerateLimit(144);
-
+	Map gameMap(&window);
     while (window.isOpen())
     {
         for (auto event = sf::Event(); window.pollEvent(event);)
@@ -14,8 +14,8 @@ int main()
                 window.close();
             }
         }
-
-        window.clear();
+        window.clear(sf::Color::White);
+		gameMap.drawBoard();
         window.display();
     }
 }

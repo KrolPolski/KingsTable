@@ -1,38 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.cpp                                            :+:      :+:    :+:   */
+/*   Map.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 11:20:46 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:30:38 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-int main(void)
+#include "KingsTable.hpp"
+#include "Map.hpp"
+
+Map::Map(sf::RenderWindow *window)
 {
-	char map[9][9]
-	{
-		{'C', '0', '0', 'A', 'A', 'A', '0', '0', 'C'},
-		{'0', '0', '0', '0', 'A', '0', '0', '0', '0'},
-		{'0', '0', '0', '0', 'D', '0', '0', '0', '0'},
-		{'A', '0', '0', '0', 'D', '0', '0', '0', 'A'},
-		{'A', 'A', 'D', 'D', 'K', 'D', 'D', 'A', 'A'},
-		{'A', '0', '0', '0', 'D', '0', '0', '0', 'A'},
-		{'0', '0', '0', '0', 'D', '0', '0', '0', '0'},
-		{'0', '0', '0', '0', 'A', '0', '0', '0', '0'},
-		{'C', '0', '0', 'A', 'A', 'A', '0', '0', 'C'}
-	};
-	
+	mapWindow = window;
+}
+
+// Map::Map()
+// {
+// }
+
+Map::~Map()
+{
+}
+void Map::drawBoard()
+{
 	for (size_t i = 0; i < 9; i++)
 	{
 		for (size_t k = 0; k < 9; k++)
 		{
-			std::cout << map[i][k];
+			mapSquares[i][k].setSize(sf::Vector2f(100, 100));
+			mapSquares[i][k].setFillColor(sf::Color(101, 67, 33));
+			mapSquares[i][k].setOutlineColor(sf::Color(0,0,0));
+			mapSquares[i][k].setOutlineThickness(4);
+			mapSquares[i][k].setPosition(50 + (k * 100), 50 + (i * 100));
+			mapWindow->draw(mapSquares[i][k]);
 		}
-		std::cout << std::endl;
+		
 	}
 	
 }
