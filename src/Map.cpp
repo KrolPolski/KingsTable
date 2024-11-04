@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 18:35:02 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:49:41 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,8 +258,36 @@ void Map::checkCapture(int x, int y)
 				std::cout << "Capturing down" << std::endl;
 				curr_map[y - 1][x] = '0';
 			}
-			
-		//corner case
+		//corner cases
+		if (((y == 1 && x == 0) && (curr_map[0][1] == 'A' || curr_map[0][1] == 'a'))
+			|| ((y == 0 && x == 1) && (curr_map[1][0] == 'A' || curr_map[1][0] == 'a'))
+			&& (curr_map[0][0] == 'D' || curr_map[0][0] == 'd')) 
+		{
+				std::cout << "Northwest corner captured" << std::endl;
+				curr_map[0][0] = 'C';
+		}
+		if (((y == 1 && x == 8) && (curr_map[0][7] == 'A' || curr_map[0][7] == 'a'))
+			|| ((y == 0 && x == 7) && (curr_map[1][8] == 'A' || curr_map[1][8] == 'a'))
+			&& (curr_map[0][8] == 'D' || curr_map[0][8] == 'd')) 
+		{
+				std::cout << "Northeast corner captured" << std::endl;
+				curr_map[0][8] = 'C';
+		}
+		if (((y == 8 && x == 7) && (curr_map[7][8] == 'A' || curr_map[7][8] == 'a'))
+			|| ((y == 7 && x == 8) && (curr_map[8][7] == 'A' || curr_map[8][7] == 'a'))
+			&& (curr_map[8][8] == 'D' || curr_map[8][8] == 'd')) 
+		{
+				std::cout << "Southeast corner captured" << std::endl;
+				curr_map[8][8] = 'C';
+		}
+		if (((y == 8 && x == 1) && (curr_map[7][0] == 'A' || curr_map[7][0] == 'a'))
+			|| ((y == 7 && x == 0) && (curr_map[8][1] == 'A' || curr_map[8][1] == 'a'))
+			&& (curr_map[8][0] == 'D' || curr_map[8][0] == 'd')) 
+		{
+				std::cout << "Southwest corner captured" << std::endl;
+				curr_map[8][0] = 'C';
+		}
+		
 	}}
 	//defender moved
 	/*else if (curr_map[y][x] == 'D' || curr_map[y][x] == 'd'
