@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 18:13:17 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 18:35:02 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,18 +220,47 @@ bool Map::checkAttackerVictory(int x, int y)
 				return (kingSurrounded);
 }
 
-bool Map::checkCapture(int x, int y)
+void Map::checkCapture(int x, int y)
 {
-	//attacker moved
 	if (x > 8 || x < 0 || y > 8 || y < 0)
-		return false;
-	else
-		std::cout << "We must have valid inputs" << std::endl;
+		return ;
 	
-	
-			//if (kingDetected)
-			//	checkAttackerVictory(x, y);
-}
+	std::cout << "We must have valid inputs for checkCapture" << std::endl;
+
+	//attacker moved
+	if (curr_map[y][x] == 'A' || curr_map[y][x] == 'a')
+	{
+		//check left
+		if (x > 1 && (curr_map[y][x - 1] == 'D' || curr_map[y][x - 1] == 'd')
+			&& (curr_map[y][x - 2] == 'A' || curr_map[y][x - 2] == 'a'))
+			{
+				std::cout << "Capturing to the left" << std::endl;
+				curr_map[y][x - 1] = '0';
+			}
+		//check right
+		if (x < 7 && (curr_map[y][x + 1] == 'D' || curr_map[y][x + 1] == 'd')
+			&& (curr_map[y][x+2] == 'A' || curr_map[y][x+2] == 'a'))
+			{
+				std::cout << "Capturing to the right" << std::endl;
+				curr_map[y][x + 1] = '0';
+			}
+		//look up
+		if (y > 1 && (curr_map[y - 1][x] == 'D' || curr_map[y - 1][x] == 'd')
+			&& (curr_map[y-2][x] == 'A' || curr_map[y-2][x] == 'a'))
+			{
+				std::cout << "Capturing up" << std::endl;
+				curr_map[y-1][x] = '0';
+			}
+		//look down
+		if (y < 7 && (curr_map[y + 1][x] == 'D' || curr_map[y + 1][x] == 'd')
+			&& (curr_map[y + 2][x] == 'A' || curr_map[y + 2][x] == 'a'))
+			{
+				std::cout << "Capturing down" << std::endl;
+				curr_map[y - 1][x] = '0';
+			}
+			
+		//corner case
+	}}
 	//defender moved
 	/*else if (curr_map[y][x] == 'D' || curr_map[y][x] == 'd'
 		|| curr_map[y][x] == 'k' || curr_map[y][x] == 'k')
@@ -246,8 +275,9 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y)
 	int map_x {(x - 50) / 100};
 	int map_y {(y - 50) / 100};
 	
-	if (sel_x < 0 || sel_y < 0 || map_x > 8 || map_y > 8)
+	if (sel_x < 0 || sel_y < 0 || sel_y > 8 || sel_x > 8 || map_x < 0 || map_y < 0 || map_x > 8 || map_y > 8)
 		return (1);
+	std::cout << "map_x: " << map_x << " map_y: "<< map_y << " sel_x: " << sel_x << " sel_y: " << sel_y << std::endl;
 	if ((map_x == sel_x || map_y == sel_y) && (curr_map[map_y][map_x] == '0' || curr_map[map_y][map_x] == 'C'))
 	{
 		std::cout << "Move is legal, executing" << std::endl;
@@ -259,7 +289,7 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y)
 		//unhighlightSquare(sel_x, sel_y);
 		checkDefenderVictory(map_x, map_y);
 		checkAttackerVictory(map_x, map_y);
-		//checkCapture(map_x, map_y);
+		checkCapture(map_x, map_y);
 		return (0);
 	}
 	else 
