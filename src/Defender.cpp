@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Attacker.hpp                                       :+:      :+:    :+:   */
+/*   Defender.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 10:42:48 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 16:14:23 by rboudwin         ###   ########.fr       */
+/*   Created: 2024/11/04 16:03:01 by rboudwin          #+#    #+#             */
+/*   Updated: 2024/11/04 16:17:02 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include "Piece.hpp"
+#include "KingsTable.hpp"
+#include "Defender.hpp"
 
-class Attacker : Piece
+/*
+Defender::Defender()
 {
-private:
-	/* data */
-public:
-	Attacker(/* args */);
-	virtual int Move(int x, int y) override;
-	~Attacker();
-};
+}
 
+Defender::~Defender()
+{
+}*/
 

@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:37:26 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 10:43:55 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:13:35 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,4 @@ public:
 	virtual ~Piece();
 };
 
-Piece::Piece()
-{
-}
 
-Piece::~Piece()
-{
-}

@@ -5,14 +5,37 @@ int main()
     auto window = sf::RenderWindow({1920u, 1080u}, "King's Table");
     window.setFramerateLimit(144);
 	Map gameMap(&window);
+	bool pieceSelected {false};
+	int sel_x {-1};
+	int sel_y {-1};
     while (window.isOpen())
     {
         for (auto event = sf::Event(); window.pollEvent(event);)
         {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-            }
+			switch (event.type)
+			{
+				case sf::Event::Closed:
+				{
+            	    window.close();
+					break;
+        	    }
+				case sf::Event::MouseButtonPressed:
+				{
+					if (event.mouseButton.button == sf::Mouse::Left)
+					{
+						if (!pieceSelected)
+							pieceSelected = gameMap.highlightSquare(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y);
+						else
+							pieceSelected = gameMap.tryMove(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y);
+					}
+					else if (event.mouseButton.button == sf::Mouse::Right)
+					{
+						pieceSelected = gameMap.unhighlightSquare(sel_x, sel_y);
+					}
+				}
+				default:
+					break;
+			}
         }
         window.clear(sf::Color::White);
 		gameMap.drawBoard();

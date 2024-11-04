@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Attacker.hpp                                       :+:      :+:    :+:   */
+/*   Attacker.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 10:42:48 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 16:14:23 by rboudwin         ###   ########.fr       */
+/*   Created: 2024/11/04 16:00:29 by rboudwin          #+#    #+#             */
+/*   Updated: 2024/11/04 16:16:44 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#include "Piece.hpp"
+#include "KingsTable.hpp"
+#include "Attacker.hpp"
 
-class Attacker : Piece
+int Move(int x, int y)
 {
-private:
-	/* data */
-public:
-	Attacker(/* args */);
-	virtual int Move(int x, int y) override;
-	~Attacker();
-};
+	
+}
 
+/*Attacker::Attacker()
+{
+}
 
+Attacker::~Attacker()
+{
+}*/

@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:03:10 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 14:45:54 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:43:03 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ public:
 	Map(sf::RenderWindow *window);
 	void drawBoard(void);
 	void drawPieces(void);
+	bool tryMove(int x, int y, int& sel_x, int& sel_y);
+	bool highlightSquare(int x, int y, int& sel_x, int& sel_y);
+	void highlightLegalMoves(int x, int y);
+	bool unhighlightSquare(int& sel_x, int& sel_y);
 	~Map();
 };
 

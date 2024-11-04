@@ -6,11 +6,12 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:44:58 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 10:45:28 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:10:36 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+#include "KingsTable.hpp"
 #include "Piece.hpp"
 
 class King : Piece
@@ -23,10 +24,4 @@ public:
 	~King();
 };
 
-King::King(/* args */)
-{
-}
 
-King::~King()
-{
-}
