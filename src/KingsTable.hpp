@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:41:49 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 14:11:26 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:45:08 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,3 @@
 #include <iostream>
 #include "Map.hpp"
 
-
-int	drawBoard(sf::RenderWindow& window);

@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:03:10 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 14:26:26 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:45:54 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ private:
 public:
 	Map(sf::RenderWindow *window);
 	void drawBoard(void);
+	void drawPieces(void);
 	~Map();
 };
 

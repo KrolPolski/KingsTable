@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 14:38:19 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:00:44 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ Map::Map(sf::RenderWindow *window)
 Map::~Map()
 {
 }
+
 void Map::drawBoard()
 {
 	for (size_t i = 0; i < 9; i++)
@@ -47,7 +48,26 @@ void Map::drawBoard()
 			mapSquares[i][k].setPosition(50 + (k * 100), 50 + (i * 100));
 			mapWindow->draw(mapSquares[i][k]);
 		}
-		
 	}
-	
+}
+void Map::drawPieces()
+{
+	std::vector<sf::CircleShape> attackers(16);
+	int attackerIndex {0};
+	for (size_t i = 0; i < 9; i++)
+	{
+		for (size_t k = 0; k < 9; k++)
+		{
+			if (curr_map[i][k] == 'A')
+			{
+				attackers[attackerIndex].setRadius(40);
+				attackers[attackerIndex].setFillColor(sf::Color(0, 0, 0));
+				attackers[attackerIndex].setOutlineColor(sf::Color(200,200,200));
+				attackers[attackerIndex].setOutlineThickness(2);
+				attackers[attackerIndex].setPosition(58 + k * 100, 58 + i * 100);
+				mapWindow->draw(attackers[attackerIndex]);
+				attackerIndex++;	
+			}
+		}
+	}
 }

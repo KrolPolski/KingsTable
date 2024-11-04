@@ -16,6 +16,7 @@ int main()
         }
         window.clear(sf::Color::White);
 		gameMap.drawBoard();
+		gameMap.drawPieces();
         window.display();
     }
 }
