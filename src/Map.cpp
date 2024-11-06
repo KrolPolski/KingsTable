@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/04 22:35:32 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:11:58 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,66 @@ void Map::drawPieces()
 			}
 			
 		}
+	}
+}
+
+bool Map::checkValidPath(int tar_x, int tar_y, int& sel_x, int &sel_y) const
+{
+	//vertical case
+	if (tar_x == sel_x)
+	{
+		if (tar_y > sel_y)
+		{
+			while (tar_y > sel_y)
+			{
+				if (curr_map[tar_y][tar_x] != '0' && curr_map[tar_y][tar_x] != 'C')
+					return false;
+				tar_y--;
+			}
+			return true;
+		}
+		else if (tar_y < sel_y)
+		{
+			while (tar_y < sel_y)
+			{
+				if (curr_map[tar_y][tar_x] != '0' && curr_map[tar_y][tar_x] != 'C')
+					return false;
+				tar_y++;
+			}
+			return true;
+		}
+		else
+			return false;
+	}
+	//horizontal case
+	else if (tar_y == sel_y)
+	{
+		if (tar_x > sel_x)
+		{
+			while (tar_x > sel_x)
+			{
+				if (curr_map[tar_y][tar_x] != '0' && curr_map[tar_y][tar_x] != 'C')
+					return false;
+				tar_x--;
+			}
+			return true;
+		}
+		else if (tar_x < sel_x)
+		{
+			while (tar_x < sel_x)
+			{
+				if (curr_map[tar_y][tar_x] != '0' && curr_map[tar_y][tar_x] != 'C')
+					return false;
+				tar_x++;	
+			}
+			return true;
+		}
+		else return false;
+	}	
+	else
+	{
+		std::cout << "Something went wront in checkValidPath" << std::endl;
+		return false;
 	}
 }
 
@@ -376,28 +436,34 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
 	std::cout << "map_x: " << map_x << " map_y: "<< map_y << " sel_x: " << sel_x << " sel_y: " << sel_y << std::endl;
 	if ((map_x == sel_x || map_y == sel_y) && (curr_map[map_y][map_x] == '0' || curr_map[map_y][map_x] == 'C'))
 	{
-		std::cout << "Move is legal, executing" << std::endl;
-		curr_map[map_y][map_x] = std::toupper(curr_map[sel_y][sel_x]);
-		if (init_map[map_y][map_x] == 'C')
-			curr_map[sel_y][sel_x] = 'C';
+		if (checkValidPath(map_x, map_y, sel_x, sel_y))
+		{
+			std::cout << "Move is legal, executing" << std::endl;
+			curr_map[map_y][map_x] = std::toupper(curr_map[sel_y][sel_x]);
+			if (init_map[map_y][map_x] == 'C')
+				curr_map[sel_y][sel_x] = 'C';
+			else
+				curr_map[sel_y][sel_x] = '0';
+			//unhighlightSquare(sel_x, sel_y);
+			checkDefenderVictory(map_x, map_y);
+			checkAttackerVictory(map_x, map_y);
+			checkCapture(map_x, map_y);
+			if (turn == Attacker)
+			{
+				std::cout << "Defender's turn now" << std::endl;
+				turn = Defender;
+			}
+			else if (turn == Defender)
+			{
+				std::cout << "Attacker's turn now" << std::endl;
+				turn = Attacker;
+			}
+				
+			return (0);
+		}
 		else
-			curr_map[sel_y][sel_x] = '0';
-		//unhighlightSquare(sel_x, sel_y);
-		checkDefenderVictory(map_x, map_y);
-		checkAttackerVictory(map_x, map_y);
-		checkCapture(map_x, map_y);
-		if (turn == Attacker)
-		{
-			std::cout << "Defender's turn now" << std::endl;
-			turn = Defender;
-		}
-		else if (turn == Defender)
-		{
-			std::cout << "Attacker's turn now" << std::endl;
-			turn = Attacker;
-		}
-			
-		return (0);
+			std::cout << "Path is blocked, illegal move" << std::endl;
+			return false;
 	}
 	else 
 	{

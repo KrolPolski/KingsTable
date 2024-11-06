@@ -2,8 +2,10 @@
 
 int main()
 {
-    auto window = sf::RenderWindow({1920u, 1080u}, "King's Table");
-    window.setFramerateLimit(144);
+	//Not sure why I had to change this, but it wouldn't compile it without doing it today.
+    //auto window = sf::RenderWindow({1920u, 1080u}, "King's Table");
+    sf::RenderWindow window({1920u, 1080u}, "King's Table");
+	window.setFramerateLimit(144);
 	Map gameMap(&window);
 	bool pieceSelected {false};
 	
