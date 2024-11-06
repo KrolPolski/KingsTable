@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/06 15:30:15 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:51:00 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ Map::Map(sf::RenderWindow *window)
 {
 	mapWindow = window;
 }
-
-// Map::Map()
-// {
-// }
 
 Map::~Map()
 {
@@ -161,15 +157,15 @@ bool Map::checkValidPath(int tar_x, int tar_y, int& sel_x, int &sel_y) const
 	}
 }
 
-void Map::highlightLegalMoves(int x, int y)
+void Map::highlightLegalMoves(int x, int y, unsigned int square_size)
 {
 	//add visual indicators later	
 }
 
-bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
+bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, unsigned int square_size)
 {
-	int map_x {(x - 50) / 100};
-	int map_y {(y - 50) / 100};
+	int map_x {(x - (static_cast<int> (square_size / 2))) / static_cast<int>(square_size)};
+	int map_y {(y - (static_cast<int> (square_size / 2))) / static_cast<int>(square_size)};
 	
 	if (map_x > 8 || map_y > 8 || curr_map[map_y][map_x] == '0')
 		return false;
@@ -177,7 +173,7 @@ bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& 
 	if ((turn == Attacker && curr_map[map_y][map_x] == 'A') || (turn == Defender && (curr_map[map_y][map_x] == 'D' || curr_map[map_y][map_x] == 'K'))) 
 	{	
 		curr_map[map_y][map_x] = std::tolower(curr_map[map_y][map_x]);
-		highlightLegalMoves(map_x, map_y);
+		//highlightLegalMoves(map_x, map_y);
 		sel_x = map_x;
 		sel_y = map_y;
 		return true;
@@ -432,10 +428,10 @@ void Map::checkCapture(int x, int y)
 	
 }*/
 
-bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
+bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, unsigned int square_size)
 {
-	int map_x {(x - 50) / 100};
-	int map_y {(y - 50) / 100};
+	int map_x {(x - (static_cast<int>(square_size / 2))) / static_cast<int>(square_size)};
+	int map_y {(y - (static_cast<int>(square_size / 2))) / static_cast<int>(square_size)};
 	
 	if (sel_x < 0 || sel_y < 0 || sel_y > 8 || sel_x > 8 || map_x < 0 || map_y < 0 || map_x > 8 || map_y > 8)
 		return (true);
@@ -460,7 +456,6 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
 				curr_map[sel_y][sel_x] = 'C';
 			else
 				curr_map[sel_y][sel_x] = '0';
-			//unhighlightSquare(sel_x, sel_y);
 			checkDefenderVictory(map_x, map_y);
 			checkAttackerVictory(map_x, map_y);
 			checkCapture(map_x, map_y);

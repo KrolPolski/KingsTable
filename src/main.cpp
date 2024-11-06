@@ -9,10 +9,9 @@ unsigned int recalc_square(unsigned int s_width, unsigned int s_height)
 	else
 		return s_width / 10;
 }
+
 int main()
 {
-	//Not sure why I had to change this, but it wouldn't compile it without doing it today.
-    //auto window = sf::RenderWindow({1920u, 1080u}, "King's Table");
     sf::RenderWindow window({1000u, 1000u}, "King's Table");
 	unsigned int s_width {1000};
 	unsigned int s_height {1000};
@@ -41,6 +40,8 @@ int main()
 					s_width = event.size.width;
 					s_height = event.size.height;
 					square_size = recalc_square(s_width, s_height);
+					//this overrides aspect ratio
+					window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
 					std::cout << "new width: " << event.size.width << std::endl;
 					std::cout << "new height: " << event.size.height << std::endl;
 				}
@@ -49,9 +50,9 @@ int main()
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
 						if (!pieceSelected)
-							pieceSelected = gameMap.highlightSquare(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn);
+							pieceSelected = gameMap.highlightSquare(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn, square_size);
 						else if (pieceSelected)
-							pieceSelected = gameMap.tryMove(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn);
+							pieceSelected = gameMap.tryMove(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn, square_size);
 						if (!pieceSelected)
 							pieceSelected = gameMap.unhighlightSquare(sel_x, sel_y);
 					}

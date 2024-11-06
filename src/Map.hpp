@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:03:10 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/06 12:26:12 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:48:06 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ public:
 	bool checkValidPath(int tar_x, int tar_y, int& sel_x, int &sel_y) const;
 	void drawBoard(int sel_x, int sel_y, bool pieceSelected, unsigned int square_size);
 	void drawPieces(unsigned int square_size);
-	bool tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn);
-	bool highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn);
-	void highlightLegalMoves(int x, int y);
+	bool tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, unsigned int square_size);
+	bool highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, unsigned int square_size);
+	void highlightLegalMoves(int x, int y, unsigned int square_size);
 	bool unhighlightSquare(int& sel_x, int& sel_y);
 	~Map();
 };
