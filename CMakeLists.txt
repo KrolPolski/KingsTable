@@ -13,7 +13,7 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(KingsTable src/main.cpp src/drawBoard.cpp src/Map.cpp src/Attacker.cpp src/Defender.cpp src/Piece.cpp)
+add_executable(KingsTable src/main.cpp src/Map.cpp)
 target_link_libraries(KingsTable PRIVATE sfml-graphics)
 target_compile_features(KingsTable PRIVATE cxx_std_17)
 
