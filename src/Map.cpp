@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/06 11:11:58 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:18:50 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& 
 	
 	if (map_x > 8 || map_y > 8 || curr_map[map_y][map_x] == '0')
 		return false;
+	
 	if ((turn == Attacker && curr_map[map_y][map_x] == 'A') || (turn == Defender && (curr_map[map_y][map_x] == 'D' || curr_map[map_y][map_x] == 'K'))) 
 		curr_map[map_y][map_x] = std::tolower(curr_map[map_y][map_x]);
 	{
@@ -433,6 +434,13 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
 	if ((curr_map[sel_y][sel_x] == 'A' || curr_map[sel_y][sel_x] == 'a' && turn == Defender)
 		|| ((curr_map[sel_y][sel_x] == 'D' || curr_map[sel_y][sel_x] == 'd' || curr_map[sel_y][sel_x] == 'K' || curr_map[sel_y][sel_x] == 'k') && turn == Attacker))
 		return (false);
+	if (map_x == sel_x && map_y == sel_y)
+	{
+		unhighlightSquare(sel_x, sel_y);
+		sel_x = -1;
+		sel_y = -1;
+		return false;
+	}
 	std::cout << "map_x: " << map_x << " map_y: "<< map_y << " sel_x: " << sel_x << " sel_y: " << sel_y << std::endl;
 	if ((map_x == sel_x || map_y == sel_y) && (curr_map[map_y][map_x] == '0' || curr_map[map_y][map_x] == 'C'))
 	{
