@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:03:10 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/06 10:59:02 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:30:17 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ public:
 	bool checkAttackerVictory(int x, int y);
 	void checkCapture(int x, int y);
 	bool checkValidPath(int tar_x, int tar_y, int& sel_x, int &sel_y) const;
-	void drawBoard(void);
+	void drawBoard(int sel_x, int sel_y, bool pieceSelected);
 	void drawPieces(void);
 	bool tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn);
 	bool highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn);

@@ -43,7 +43,7 @@ int main()
 			}
         }
         window.clear(sf::Color::White);
-		gameMap.drawBoard();
+		gameMap.drawBoard(sel_x, sel_y, pieceSelected);
 		gameMap.drawPieces();
         window.display();
     }

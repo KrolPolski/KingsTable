@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/06 11:18:50 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:35:19 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Map::~Map()
 {
 }
 
-void Map::drawBoard()
+void Map::drawBoard(int sel_x, int sel_y, bool pieceSelected)
 {
 	for (size_t i = 0; i < 9; i++)
 	{
@@ -52,6 +52,8 @@ void Map::drawBoard()
 			mapWindow->draw(mapSquares[i][k]);
 		}
 	}
+	if (pieceSelected && sel_x >= 0 && sel_x < 9 && sel_y >= 0 && sel_y < 9)
+		mapWindow->draw(mapSquares[sel_y][sel_x]);
 }
 void Map::drawPieces()
 {
@@ -172,14 +174,19 @@ bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& 
 		return false;
 	
 	if ((turn == Attacker && curr_map[map_y][map_x] == 'A') || (turn == Defender && (curr_map[map_y][map_x] == 'D' || curr_map[map_y][map_x] == 'K'))) 
+	{	
 		curr_map[map_y][map_x] = std::tolower(curr_map[map_y][map_x]);
-	{
 		highlightLegalMoves(map_x, map_y);
 		sel_x = map_x;
 		sel_y = map_y;
 		return true;
 	}
-	return false;
+	else
+	{
+		sel_x = -1;
+		sel_y = -1;
+		return false;
+	}
 	//std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
 	//mapWindow->draw(mapSquares[map_y][map_x]);
 }
