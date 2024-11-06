@@ -23,6 +23,8 @@ All pieces move as far as they want in either the horizontal or vertical directi
 To capture a piece, you must flank it on both sides, either horizontally or vertically. 
 The King can assist with captures if paired with another defender. The King cannot be captured in this way.
 
+## Controls
+Select the piece you want with the left mouse button. If you change your mind you can either right click anywhere or left click the piece to deselect it. Then click where you want to move.
 ## This project uses SFML. Below are the relevant instructions to compile SFML.
 You'll need to make sure the relevant dependencies are met. Once you have run the two cmake commands mentioned below, you can go to ./build and run make from there. The executable will be at ./build/bin/KingsTable.
 # CMake SFML Project Template
