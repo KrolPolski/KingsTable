@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/06 11:35:19 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:30:15 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ Map::~Map()
 {
 }
 
-void Map::drawBoard(int sel_x, int sel_y, bool pieceSelected)
+void Map::drawBoard(int sel_x, int sel_y, bool pieceSelected, unsigned int square_size)
 {
 	for (size_t i = 0; i < 9; i++)
 	{
 		for (size_t k = 0; k < 9; k++)
 		{
-			mapSquares[i][k].setSize(sf::Vector2f(100, 100));
+			mapSquares[i][k].setSize(sf::Vector2f(square_size, square_size));
 			if (init_map[i][k] == 'A')
 				mapSquares[i][k].setFillColor(sf::Color(117, 106, 94));
 			else if (init_map[i][k] == 'D')
@@ -48,42 +48,43 @@ void Map::drawBoard(int sel_x, int sel_y, bool pieceSelected)
 			else
 				mapSquares[i][k].setOutlineColor(sf::Color(51, 0, 6));
 			mapSquares[i][k].setOutlineThickness(4);
-			mapSquares[i][k].setPosition(50 + (k * 100), 50 + (i * 100));
+			mapSquares[i][k].setPosition((square_size / 2) + (k * square_size), (square_size / 2) + (i * square_size));
 			mapWindow->draw(mapSquares[i][k]);
 		}
 	}
 	if (pieceSelected && sel_x >= 0 && sel_x < 9 && sel_y >= 0 && sel_y < 9)
 		mapWindow->draw(mapSquares[sel_y][sel_x]);
 }
-void Map::drawPieces()
+void Map::drawPieces(unsigned int square_size)
 {
 	std::vector<sf::CircleShape> attackers(16);
 	std::vector<sf::CircleShape> defenders(8);
-	sf::CircleShape myLiege(40, 6);
+	sf::CircleShape myLiege(square_size * .4, 6);
 	int attackerIndex {0};
 	int defenderIndex {0};
+	
 	for (size_t i = 0; i < 9; i++)
 	{
 		for (size_t k = 0; k < 9; k++)
 		{
 			if (curr_map[i][k] == 'A' || curr_map[i][k] == 'a')
 			{
-				attackers[attackerIndex].setRadius(40);
+				attackers[attackerIndex].setRadius(square_size * .4);
 				attackers[attackerIndex].setFillColor(sf::Color(149, 200, 219));
 				attackers[attackerIndex].setOutlineColor(sf::Color(51, 0, 6));
 				attackers[attackerIndex].setOutlineThickness(5);
-				attackers[attackerIndex].setPosition(58 + k * 100, 58 + i * 100); //50 for edge of board, 8 to center pieces based on the square outlines being 4 on each side
+				attackers[attackerIndex].setPosition((square_size * .58) + k * square_size, (square_size * .58) + i * square_size); //50 for edge of board, 8 to center pieces based on the square outlines being 4 on each side
 				mapWindow->draw(attackers[attackerIndex]);
 				attackerIndex++;	
 			}
 			else if (curr_map[i][k] == 'D' || curr_map[i][k] == 'd')
 			{
-				defenders[defenderIndex].setRadius(40);
+				defenders[defenderIndex].setRadius(square_size * .4);
 				defenders[defenderIndex].setPointCount(5);
 				defenders[defenderIndex].setFillColor(sf::Color(255, 220, 143));
 				defenders[defenderIndex].setOutlineColor(sf::Color(51, 0, 6));
 				defenders[defenderIndex].setOutlineThickness(5);	
-				defenders[defenderIndex].setPosition(58 + k * 100, 58 + i * 100);	
+				defenders[defenderIndex].setPosition((square_size * .58) + k * square_size, (square_size * .58) + i * square_size);	
 				mapWindow->draw(defenders[defenderIndex]);
 				defenderIndex++;
 			}
@@ -92,7 +93,7 @@ void Map::drawPieces()
 				myLiege.setFillColor(sf::Color(244, 101, 71));
 				myLiege.setOutlineColor(sf::Color(51, 0, 6));
 				myLiege.setOutlineThickness(5);
-				myLiege.setPosition(58 + k * 100, 58 + i * 100);
+				myLiege.setPosition((square_size * .58) + k * square_size, (square_size * .58) + i * square_size);
 				mapWindow->draw(myLiege);
 			}
 			
@@ -483,7 +484,7 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
 	else 
 	{
 		std::cout << "Illegal move" << std::endl;
-		return (1);
+		return (false);
 	}
 	
 }
