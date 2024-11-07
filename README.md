@@ -13,6 +13,7 @@ The Defenders:![Screenshot from 2024-11-06 16-58-27](https://github.com/user-att
 The Attackers:![Screenshot from 2024-11-06 16-59-11](https://github.com/user-attachments/assets/7f49f8fa-7d37-40f8-a459-e4fec42e8821)
 
 ## The Rules
+The attackers move first.
 ### Attackers Objective
 The attackers win if they surround the king horizontally and vertically, either with four of their units, with one on each side, or with three of them if the King is against the edge of the board.
 ### Defenders Objective

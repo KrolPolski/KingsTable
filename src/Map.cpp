@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/07 14:25:44 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:45:28 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,8 +190,8 @@ bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y)
 		//highlightLegalMoves(map_x, map_y);
 		sel_x = map_x;
 		sel_y = map_y;
-		std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
-		std::cout << "mouse x is " << x << " and mouse y is "  << y << std::endl;
+		//std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
+	//	std::cout << "mouse x is " << x << " and mouse y is "  << y << std::endl;
 		return true;
 	}
 	else
@@ -200,7 +200,7 @@ bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y)
 		sel_y = -1;
 		return false;
 	}
-	std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
+	//std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
 	//mapWindow->draw(mapSquares[map_y][map_x]);
 }
 bool Map::unhighlightSquare(int& sel_x, int& sel_y)
@@ -316,7 +316,7 @@ void Map::checkCapture(int x, int y)
 	if (x > 8 || x < 0 || y > 8 || y < 0)
 		return ;
 	
-	std::cout << "We must have valid inputs for checkCapture" << std::endl;
+	//std::cout << "We must have valid inputs for checkCapture" << std::endl;
 
 	//attacker moved
 	if (curr_map[y][x] == 'A' || curr_map[y][x] == 'a')

@@ -45,8 +45,8 @@ int main()
 					gameMap.setSquareSize(recalc_square(s_width, s_height));
 					//this overrides aspect ratio
 					window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
-					std::cout << "new width: " << event.size.width << std::endl;
-					std::cout << "new height: " << event.size.height << std::endl;
+					//std::cout << "new width: " << event.size.width << std::endl;
+					//std::cout << "new height: " << event.size.height << std::endl;
 				}
 				case sf::Event::MouseButtonPressed:
 				{
