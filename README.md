@@ -1,3 +1,32 @@
+# King's Table
+This game is also known as Tablut, a Viking board game whose rules were recorded in Lapland. It is asymmetric and very quick to play.
+It is played on a 9x9 board:
+
+<img src="https://github.com/user-attachments/assets/245ece4c-fd65-4292-a0e2-ff30cf8656db" width="500" height="500">
+
+
+## The Pieces
+The King: ![Screenshot from 2024-11-06 16-58-46](https://github.com/user-attachments/assets/8ba049e9-dfce-464f-a7d9-41b1641f841c)
+
+The Defenders:![Screenshot from 2024-11-06 16-58-27](https://github.com/user-attachments/assets/c07f3d68-ab24-4b01-b0a6-4d8f53be88b4)
+
+The Attackers:![Screenshot from 2024-11-06 16-59-11](https://github.com/user-attachments/assets/7f49f8fa-7d37-40f8-a459-e4fec42e8821)
+
+## The Rules
+### Attackers Objective
+The attackers win if they surround the king horizontally and vertically, either with four of their units, with one on each side, or with three of them if the King is against the edge of the board.
+### Defenders Objective
+The defenders win if their king manages to get to one of the four corners of the board.
+### Movement
+All pieces move as far as they want in either the horizontal or vertical direction, as long as the path is clear and the destination square is unoccupied.
+### Capturing Pieces
+To capture a piece, you must flank it on both sides, either horizontally or vertically. 
+The King can assist with captures if paired with another defender. The King cannot be captured in this way.
+
+## Controls
+Select the piece you want with the left mouse button. If you change your mind you can either right click anywhere or left click the piece to deselect it. Then click where you want to move.
+## This project uses SFML. Below are the relevant instructions to compile SFML.
+You'll need to make sure the relevant dependencies are met. Once you have run the two cmake commands mentioned below, you can go to ./build and run make from there. The executable will be at ./build/bin/KingsTable.
 # CMake SFML Project Template
 
 This repository template should allow for a fast and hassle-free kick start of your next SFML project using CMake.
