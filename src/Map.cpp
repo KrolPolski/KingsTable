@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/07 13:54:25 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:25:44 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,14 @@ void Map::highlightLegalMoves(int x, int y)
 
 bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y)
 {
-	int map_x {(x - (static_cast<int> (square_size))) / static_cast<int>(square_size)};
-	int map_y {(y - (static_cast<int> (square_size * 1.5))) / static_cast<int>(square_size)};
+	int numerator_x;
+	int numerator_y;
+	numerator_x = x - (static_cast<int> (square_size));
+	numerator_y = y - (static_cast<int> (square_size * 1.5));
+	if (numerator_x < 0 || numerator_y < 0)
+		return false;
+	int map_x {numerator_x / static_cast<int>(square_size)};
+	int map_y {numerator_y / static_cast<int>(square_size)};
 	
 	if (map_x > 8 || map_y > 8 || curr_map[map_y][map_x] == '0')
 		return false;
@@ -184,6 +190,8 @@ bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y)
 		//highlightLegalMoves(map_x, map_y);
 		sel_x = map_x;
 		sel_y = map_y;
+		std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
+		std::cout << "mouse x is " << x << " and mouse y is "  << y << std::endl;
 		return true;
 	}
 	else
@@ -192,7 +200,7 @@ bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y)
 		sel_y = -1;
 		return false;
 	}
-	//std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
+	std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
 	//mapWindow->draw(mapSquares[map_y][map_x]);
 }
 bool Map::unhighlightSquare(int& sel_x, int& sel_y)
@@ -444,8 +452,17 @@ void Map::checkCapture(int x, int y)
 
 bool Map::tryMove(int x, int y, int& sel_x, int& sel_y)
 {
-	int map_x {(x - (static_cast<int>(square_size))) / static_cast<int>(square_size)};
-	int map_y {(y - (static_cast<int>(square_size *1.5))) / static_cast<int>(square_size)};
+	int numerator_x;
+	int numerator_y;
+	numerator_x = x - (static_cast<int> (square_size));
+	numerator_y = y - (static_cast<int> (square_size * 1.5));
+	if (numerator_x < 0 || numerator_y < 0)
+	{
+		unhighlightSquare(sel_x, sel_y);
+		return false;
+	}
+	int map_x {numerator_x / static_cast<int>(square_size)};
+	int map_y {numerator_y / static_cast<int>(square_size)};
 	
 	if (sel_x < 0 || sel_y < 0 || sel_y > 8 || sel_x > 8 || map_x < 0 || map_y < 0 || map_x > 8 || map_y > 8)
 		return (true);
