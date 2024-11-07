@@ -29,7 +29,7 @@ Select the piece you want with the left mouse button. If you change your mind yo
 ## OS Requirements
 This was written and tested on Ubuntu Linux and Linux Mint. It should also work on Windows. 
 
-## This project uses SFML. Below are the relevant instructions to compile SFML.
+## Compilation Instructions
 You'll need to make sure the relevant dependencies are met. Once you have run the two cmake commands mentioned below, you can go to ./build and run make from there. The executable will be at ./build/bin/KingsTable.
 
 1. If you use Linux, install SFML's dependencies using your system package manager. On Ubuntu and other Debian-based distributions you can use the following commands:
