@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:03:10 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/06 16:48:06 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:05:36 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ private:
 public:
 	Map(sf::RenderWindow *window);
 	bool checkDefenderVictory(int x, int y);
-	bool checkAttackerVictory(int x, int y);
+	bool checkAttackerVictory(int x, int y, unsigned int square_size);
 	void checkCapture(int x, int y);
 	bool checkValidPath(int tar_x, int tar_y, int& sel_x, int &sel_y) const;
 	void drawBoard(int sel_x, int sel_y, bool pieceSelected, unsigned int square_size);

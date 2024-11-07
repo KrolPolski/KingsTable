@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/06 16:51:00 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:23:35 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void Map::drawBoard(int sel_x, int sel_y, bool pieceSelected, unsigned int squar
 			else
 				mapSquares[i][k].setOutlineColor(sf::Color(51, 0, 6));
 			mapSquares[i][k].setOutlineThickness(4);
-			mapSquares[i][k].setPosition((square_size / 2) + (k * square_size), (square_size / 2) + (i * square_size));
+			mapSquares[i][k].setPosition((square_size) + (k * square_size), (square_size * 1.5) + (i * square_size));
 			mapWindow->draw(mapSquares[i][k]);
 		}
 	}
@@ -69,7 +69,7 @@ void Map::drawPieces(unsigned int square_size)
 				attackers[attackerIndex].setFillColor(sf::Color(149, 200, 219));
 				attackers[attackerIndex].setOutlineColor(sf::Color(51, 0, 6));
 				attackers[attackerIndex].setOutlineThickness(5);
-				attackers[attackerIndex].setPosition((square_size * .58) + k * square_size, (square_size * .58) + i * square_size); //50 for edge of board, 8 to center pieces based on the square outlines being 4 on each side
+				attackers[attackerIndex].setPosition((square_size * 1.08) + k * square_size, (square_size * 1.58) + i * square_size); //50 for edge of board, 8 to center pieces based on the square outlines being 4 on each side
 				mapWindow->draw(attackers[attackerIndex]);
 				attackerIndex++;	
 			}
@@ -80,7 +80,7 @@ void Map::drawPieces(unsigned int square_size)
 				defenders[defenderIndex].setFillColor(sf::Color(255, 220, 143));
 				defenders[defenderIndex].setOutlineColor(sf::Color(51, 0, 6));
 				defenders[defenderIndex].setOutlineThickness(5);	
-				defenders[defenderIndex].setPosition((square_size * .58) + k * square_size, (square_size * .58) + i * square_size);	
+				defenders[defenderIndex].setPosition((square_size * 1.08) + k * square_size, (square_size * 1.58) + i * square_size);	
 				mapWindow->draw(defenders[defenderIndex]);
 				defenderIndex++;
 			}
@@ -89,7 +89,7 @@ void Map::drawPieces(unsigned int square_size)
 				myLiege.setFillColor(sf::Color(244, 101, 71));
 				myLiege.setOutlineColor(sf::Color(51, 0, 6));
 				myLiege.setOutlineThickness(5);
-				myLiege.setPosition((square_size * .58) + k * square_size, (square_size * .58) + i * square_size);
+				myLiege.setPosition((square_size * 1.08) + k * square_size, (square_size * 1.58) + i * square_size);
 				mapWindow->draw(myLiege);
 			}
 			
@@ -164,8 +164,8 @@ void Map::highlightLegalMoves(int x, int y, unsigned int square_size)
 
 bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, unsigned int square_size)
 {
-	int map_x {(x - (static_cast<int> (square_size / 2))) / static_cast<int>(square_size)};
-	int map_y {(y - (static_cast<int> (square_size / 2))) / static_cast<int>(square_size)};
+	int map_x {(x - (static_cast<int> (square_size))) / static_cast<int>(square_size)};
+	int map_y {(y - (static_cast<int> (square_size * 1.5))) / static_cast<int>(square_size)};
 	
 	if (map_x > 8 || map_y > 8 || curr_map[map_y][map_x] == '0')
 		return false;
@@ -221,7 +221,7 @@ bool Map::checkDefenderVictory(int x, int y)
 }
 
 // pass this the king location after an attacker move.
-bool Map::checkAttackerVictory(int x, int y)
+bool Map::checkAttackerVictory(int x, int y, unsigned int square_size)
 {
 	//Find King
 	int i = 0;
@@ -282,7 +282,11 @@ bool Map::checkAttackerVictory(int x, int y)
 			}
 			if (kingSurrounded)
 			{
+				
+				std::string placeholder;
 				std::cout << "The attackers have overthrown the king and win the game." << std::endl;
+				std::cin >> placeholder;
+				//return (kingSurrounded);
 				exit(0);
 			}
 			else
@@ -430,8 +434,8 @@ void Map::checkCapture(int x, int y)
 
 bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, unsigned int square_size)
 {
-	int map_x {(x - (static_cast<int>(square_size / 2))) / static_cast<int>(square_size)};
-	int map_y {(y - (static_cast<int>(square_size / 2))) / static_cast<int>(square_size)};
+	int map_x {(x - (static_cast<int>(square_size))) / static_cast<int>(square_size)};
+	int map_y {(y - (static_cast<int>(square_size *1.5))) / static_cast<int>(square_size)};
 	
 	if (sel_x < 0 || sel_y < 0 || sel_y > 8 || sel_x > 8 || map_x < 0 || map_y < 0 || map_x > 8 || map_y > 8)
 		return (true);
@@ -457,7 +461,7 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, un
 			else
 				curr_map[sel_y][sel_x] = '0';
 			checkDefenderVictory(map_x, map_y);
-			checkAttackerVictory(map_x, map_y);
+			checkAttackerVictory(map_x, map_y, square_size);
 			checkCapture(map_x, map_y);
 			if (turn == Attacker)
 			{

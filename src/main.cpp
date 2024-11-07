@@ -4,10 +4,10 @@ unsigned int recalc_square(unsigned int s_width, unsigned int s_height)
 {
 	if (s_width < s_height)
 	{
-		return s_height / 10;
+		return s_height / 11;
 	}
 	else
-		return s_width / 10;
+		return s_width / 11;
 }
 
 int main()
@@ -15,11 +15,19 @@ int main()
     sf::RenderWindow window({1000u, 1000u}, "King's Table");
 	unsigned int s_width {1000};
 	unsigned int s_height {1000};
-	unsigned int square_size {100};
+	unsigned int square_size {1000 / 11};
 	window.setFramerateLimit(144);
 	Map gameMap(&window);
 	bool pieceSelected {false};
-	
+	sf::Font font;
+	font.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSerif.ttf");
+	sf::Text text;
+	text.setFont(font);
+	text.setCharacterSize(square_size);
+	text.setFillColor(sf::Color::Red);
+	text.setString("Attackers Turn");
+	text.setPosition(square_size, 0);
+				
 
 	enum whoseTurn turn = Attacker;
 	int sel_x {-1};
@@ -68,6 +76,7 @@ int main()
         window.clear(sf::Color::White);
 		gameMap.drawBoard(sel_x, sel_y, pieceSelected, square_size);
 		gameMap.drawPieces(square_size);
+		window.draw(text);
         window.display();
     }
 }
