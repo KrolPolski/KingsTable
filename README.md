@@ -52,10 +52,6 @@ You'll need to make sure the relevant dependencies are met. Once you have run th
     cmake -B build
     cmake --build build
     ```
-    Then go to the build directory, and run
-    ```
-    make
-    ```
-    The game will then be available from ```./bin/KingsTable```.
+    The game will then be available from ```./build/bin/KingsTable```.
    ### SFML Template
    Thanks to the template at [https://github.com/SFML/cmake-sfml-project](https://github.com/SFML/cmake-sfml-project) this was fairly easy to get started with. I recommend using this template if you are new to SFML or cmake.
