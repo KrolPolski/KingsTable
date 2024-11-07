@@ -1,5 +1,7 @@
 # King's Table
 This game is also known as Tablut, a Viking board game whose rules were recorded in Lapland. It is asymmetric and very quick to play.
+The game is written in C++ and uses the [Simple and Fast Multimedia Library](https://www.sfml-dev.org/index.php).
+
 It is played on a 9x9 board:
 
 <img src="https://github.com/user-attachments/assets/a36b0351-6ad9-47ed-b752-ab34bb81679d" width="500" height="500">
@@ -14,15 +16,47 @@ The Attackers:![Screenshot from 2024-11-06 16-59-11](https://github.com/user-att
 ## The Rules
 The attackers move first.
 ### Attackers Objective
-The attackers win if they surround the king horizontally and vertically, either with four of their units, with one on each side, or with three of them if the King is against the edge of the board.
+The attackers win if they surround the king horizontally and vertically, either with four of their units, with one on each side:
+
+![Screenshot from 2024-11-07 19-20-49](https://github.com/user-attachments/assets/e2e36523-9b96-40c7-a80d-d0654235c7a9)
+
+or with three of them if the King is against the edge of the board:
+
+![Screenshot from 2024-11-07 19-19-33](https://github.com/user-attachments/assets/c4b2ee4d-d993-4820-86fc-e30acb7bc302)
+
 ### Defenders Objective
 The defenders win if their king manages to get to one of the four corners of the board.
 ### Movement
 All pieces move as far as they want in either the horizontal or vertical direction, as long as the path is clear and the destination square is unoccupied.
 ### Capturing Pieces
-To capture a piece, you must flank it on both sides, either horizontally or vertically. 
+To capture a piece, you must flank it on two opposite sides, either horizontally or vertically.
+For example:
+
+Before Capture: 
+
+![Screenshot from 2024-11-07 19-30-28](https://github.com/user-attachments/assets/b4169c43-a0e9-4faf-a94a-1d20146c3cc5)
+
+The attacker can capture by moving his left piece up one square.
+
+After Capture: 
+
+![Screenshot from 2024-11-07 19-30-39](https://github.com/user-attachments/assets/8cb80b2b-04b2-4958-8c0a-8cd3f75370b1)
+
 The King can assist with captures if paired with another defender. The King cannot be captured in this way.
 
+#### Corner Captures:
+If an attacker or defender piece is in one of the four corners, you can capture it by placing one of your pieces on both the two adjacent squares (one horizontal and one vertical). This is an exception to the normal capture rules. 
+Here is an example.
+
+Before corner capture:
+
+![Screenshot from 2024-11-07 19-25-32](https://github.com/user-attachments/assets/9dd6556c-6bbf-467c-96be-76052b20ad60)
+
+After corner capture:
+
+![Screenshot from 2024-11-07 19-25-50](https://github.com/user-attachments/assets/966e6e21-96fd-4256-a8e3-84e8c3733b0a)
+
+Captures happen only at the end of a movement (meaning you can safely move between two enemies that are already in a flanking position; they can only capture you in that situation if they move away and come back).
 ## Controls
 Select the piece you want with the left mouse button. If you change your mind you can either right click anywhere or left click the piece to deselect it. Then click where you want to move.
 
