@@ -1,5 +1,14 @@
 #include "KingsTable.hpp"
 
+#ifdef _WIN32
+int main();
+#include "windows.h"
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd) {
+    return main();
+}
+
+#endif
 unsigned int recalc_square(unsigned int s_width, unsigned int s_height)
 {
 	if (s_width < s_height)
