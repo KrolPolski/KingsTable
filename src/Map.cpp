@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/07 14:45:28 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:58:51 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 Map::Map(sf::RenderWindow *window)
 {
 	mapWindow = window;
-	font.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSerif.ttf");
+	std::string fontstr {std::string(ASSETS_DIR) + "/LiberationSerif-Bold.ttf"};
+	font.loadFromFile(fontstr);
 	text.setFont(font);
 	text.setCharacterSize(getSquareSize());
 	text.setFillColor(sf::Color::Red);

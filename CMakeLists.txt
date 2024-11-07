@@ -14,6 +14,7 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(KingsTable src/main.cpp src/Map.cpp)
+add_compile_definitions(ASSETS_DIR="${CMAKE_SOURCE_DIR}/assets")
 target_link_libraries(KingsTable PRIVATE sfml-graphics)
 target_compile_features(KingsTable PRIVATE cxx_std_17)
 
