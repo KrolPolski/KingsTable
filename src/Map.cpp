@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/07 13:09:51 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:54:25 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ Map::Map(sf::RenderWindow *window)
 	text.setFont(font);
 	text.setCharacterSize(getSquareSize());
 	text.setFillColor(sf::Color::Red);
+	text.setOutlineColor(sf::Color::White);
+	text.setOutlineThickness(3);
 	text.setString("Attackers Turn");
 	text.setPosition(getSquareSize(), 0);
 }
@@ -168,7 +170,7 @@ void Map::highlightLegalMoves(int x, int y)
 	//add visual indicators later	
 }
 
-bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
+bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y)
 {
 	int map_x {(x - (static_cast<int> (square_size))) / static_cast<int>(square_size)};
 	int map_y {(y - (static_cast<int> (square_size * 1.5))) / static_cast<int>(square_size)};
@@ -217,8 +219,10 @@ bool Map::checkDefenderVictory(int x, int y)
 		{
 			if (init_map[y][x] == 'C')
 			{
+				text.setString("Defender Wins!\nPlay again? [Y/N]");
 				std::cout << "Defender wins! Long live the King!" << std::endl;
-				exit(0);
+				gameOver = true;
+				return true;
 			}
 		}
 		return false;
@@ -290,10 +294,10 @@ bool Map::checkAttackerVictory(int x, int y)
 			{
 				
 				std::string placeholder;
+				text.setString("Attackers Win!\nPlay again? [Y/N]");
 				std::cout << "The attackers have overthrown the king and win the game." << std::endl;
-				std::cin >> placeholder;
-				//return (kingSurrounded);
-				exit(0);
+				gameOver = true;
+				return (true);
 			}
 			else
 				return (kingSurrounded);
@@ -438,7 +442,7 @@ void Map::checkCapture(int x, int y)
 	
 }*/
 
-bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
+bool Map::tryMove(int x, int y, int& sel_x, int& sel_y)
 {
 	int map_x {(x - (static_cast<int>(square_size))) / static_cast<int>(square_size)};
 	int map_y {(y - (static_cast<int>(square_size *1.5))) / static_cast<int>(square_size)};
@@ -468,6 +472,8 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
 				curr_map[sel_y][sel_x] = '0';
 			checkDefenderVictory(map_x, map_y);
 			checkAttackerVictory(map_x, map_y);
+			if (gameOver)
+				return (true);
 			checkCapture(map_x, map_y);
 			if (turn == Attacker)
 			{
@@ -481,16 +487,18 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
 				std::cout << "Attacker's turn now" << std::endl;
 				turn = Attacker;
 			}
-				
-			return (0);
+			unhighlightSquare(sel_x, sel_y);	
+			return (false);
 		}
 		else
 			std::cout << "Path is blocked, illegal move" << std::endl;
+			unhighlightSquare(sel_x, sel_y);
 			return false;
 	}
 	else 
 	{
 		std::cout << "Illegal move" << std::endl;
+		unhighlightSquare(sel_x, sel_y);
 		return (false);
 	}
 	
@@ -503,4 +511,21 @@ void Map::setSquareSize(unsigned int sq_size)
 unsigned int Map::getSquareSize()
 {
 	return square_size;
+}
+
+void Map::resetBoard(int& sel_x, int& sel_y, bool& pieceSelected)
+{
+	for (size_t i = 0; i < 9; i++)
+	{
+		for (size_t k = 0; k < 9; k++)
+		{
+				curr_map[i][k] = init_map[i][k];
+		}
+	}
+	gameOver = false;
+	turn = Attacker;
+	sel_x = -1;
+	sel_y = -1;
+	pieceSelected = false;
+	text.setString("Attacker's Turn");
 }

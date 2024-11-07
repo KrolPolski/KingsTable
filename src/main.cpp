@@ -10,6 +10,7 @@ unsigned int recalc_square(unsigned int s_width, unsigned int s_height)
 		return s_width / 11;
 }
 
+
 int main()
 {
     sf::RenderWindow window({1000u, 1000u}, "King's Table");
@@ -23,7 +24,7 @@ int main()
 	
 				
 
-	enum whoseTurn turn = Attacker;
+	
 	int sel_x {-1};
 	int sel_y {-1};
     while (window.isOpen())
@@ -51,17 +52,27 @@ int main()
 				{
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
+						if (gameMap.gameOver)
+							break;
 						if (!pieceSelected)
-							pieceSelected = gameMap.highlightSquare(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn);
+							pieceSelected = gameMap.highlightSquare(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y);
 						else if (pieceSelected)
-							pieceSelected = gameMap.tryMove(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn);
-						if (!pieceSelected)
-							pieceSelected = gameMap.unhighlightSquare(sel_x, sel_y);
+							pieceSelected = gameMap.tryMove(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y);
+						//if (!pieceSelected)
+						//	pieceSelected = gameMap.unhighlightSquare(sel_x, sel_y);
+						
 					}
 					else if (event.mouseButton.button == sf::Mouse::Right)
 					{
 						pieceSelected = gameMap.unhighlightSquare(sel_x, sel_y);
 					}
+				}
+				case sf::Event::KeyPressed:
+				{
+					if (event.key.code == sf::Keyboard::Y && gameMap.gameOver)
+						gameMap.resetBoard(sel_x, sel_y, pieceSelected); 
+					else if (event.key.code == sf::Keyboard::N && gameMap.gameOver)
+						exit(0);
 				}
 				default:
 					break;

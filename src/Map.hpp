@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:03:10 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/07 13:08:21 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:00:25 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ private:
 	sf::RenderWindow *mapWindow;
 	unsigned int square_size {90};
 	sf::Font font;
+	enum whoseTurn turn {Attacker};
 	
 public:
 	sf::Text text;
+	bool gameOver {false};
 	Map(sf::RenderWindow *window);
 	bool checkDefenderVictory(int x, int y);
 	bool checkAttackerVictory(int x, int y);
@@ -55,8 +57,9 @@ public:
 	bool checkValidPath(int tar_x, int tar_y, int& sel_x, int &sel_y) const;
 	void drawBoard(int sel_x, int sel_y, bool pieceSelected);
 	void drawPieces();
-	bool tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn);
-	bool highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn);
+	void resetBoard(int& sel_x, int& sel_y, bool& pieceSelected);
+	bool tryMove(int x, int y, int& sel_x, int& sel_y);
+	bool highlightSquare(int x, int y, int& sel_x, int& sel_y);
 	void highlightLegalMoves(int x, int y);
 	bool unhighlightSquare(int& sel_x, int& sel_y);
 	~Map();
