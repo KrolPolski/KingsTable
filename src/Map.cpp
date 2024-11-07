@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/07 14:58:51 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:07:51 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,6 @@ bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y)
 		//highlightLegalMoves(map_x, map_y);
 		sel_x = map_x;
 		sel_y = map_y;
-		//std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
-	//	std::cout << "mouse x is " << x << " and mouse y is "  << y << std::endl;
 		return true;
 	}
 	else
@@ -201,8 +199,6 @@ bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y)
 		sel_y = -1;
 		return false;
 	}
-	//std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
-	//mapWindow->draw(mapSquares[map_y][map_x]);
 }
 bool Map::unhighlightSquare(int& sel_x, int& sel_y)
 {
@@ -216,8 +212,6 @@ bool Map::unhighlightSquare(int& sel_x, int& sel_y)
 	sel_x = -1;
 	sel_y = -1;
 	return (0);
-	//std::cout << "Now we have a " << curr_map[map_y][map_x] << " at " << map_y << ":" << map_x << std::endl;
-	//mapWindow->draw(mapSquares[map_y][map_x]);
 }
 
 bool Map::checkDefenderVictory(int x, int y)
@@ -239,7 +233,6 @@ bool Map::checkDefenderVictory(int x, int y)
 	return false;
 }
 
-// pass this the king location after an attacker move.
 bool Map::checkAttackerVictory(int x, int y)
 {
 	//Find King
@@ -317,8 +310,6 @@ void Map::checkCapture(int x, int y)
 	if (x > 8 || x < 0 || y > 8 || y < 0)
 		return ;
 	
-	//std::cout << "We must have valid inputs for checkCapture" << std::endl;
-
 	//attacker moved
 	if (curr_map[y][x] == 'A' || curr_map[y][x] == 'a')
 	{
@@ -441,15 +432,8 @@ void Map::checkCapture(int x, int y)
 				curr_map[8][0] = 'C';
 		}
 		
-	}}
-	//defender moved
-	/*else if (curr_map[y][x] == 'D' || curr_map[y][x] == 'd'
-		|| curr_map[y][x] == 'k' || curr_map[y][x] == 'k')
-	{
-		
 	}
-	
-}*/
+}
 
 bool Map::tryMove(int x, int y, int& sel_x, int& sel_y)
 {
@@ -477,12 +461,10 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y)
 		sel_y = -1;
 		return false;
 	}
-	//std::cout << "map_x: " << map_x << " map_y: "<< map_y << " sel_x: " << sel_x << " sel_y: " << sel_y << std::endl;
 	if ((map_x == sel_x || map_y == sel_y) && (curr_map[map_y][map_x] == '0' || curr_map[map_y][map_x] == 'C'))
 	{
 		if (checkValidPath(map_x, map_y, sel_x, sel_y))
 		{
-			//std::cout << "Move is legal, executing" << std::endl;
 			curr_map[map_y][map_x] = std::toupper(curr_map[sel_y][sel_x]);
 			if (init_map[map_y][map_x] == 'C')
 				curr_map[sel_y][sel_x] = 'C';
@@ -526,6 +508,7 @@ void Map::setSquareSize(unsigned int sq_size)
 {
 	square_size = sq_size;
 }
+
 unsigned int Map::getSquareSize()
 {
 	return square_size;

@@ -54,8 +54,6 @@ int main()
 					gameMap.setSquareSize(recalc_square(s_width, s_height));
 					//this overrides aspect ratio
 					window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
-					//std::cout << "new width: " << event.size.width << std::endl;
-					//std::cout << "new height: " << event.size.height << std::endl;
 				}
 				case sf::Event::MouseButtonPressed:
 				{
@@ -67,9 +65,6 @@ int main()
 							pieceSelected = gameMap.highlightSquare(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y);
 						else if (pieceSelected)
 							pieceSelected = gameMap.tryMove(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y);
-						//if (!pieceSelected)
-						//	pieceSelected = gameMap.unhighlightSquare(sel_x, sel_y);
-						
 					}
 					else if (event.mouseButton.button == sf::Mouse::Right)
 					{
