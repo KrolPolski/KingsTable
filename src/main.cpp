@@ -4,10 +4,10 @@ unsigned int recalc_square(unsigned int s_width, unsigned int s_height)
 {
 	if (s_width < s_height)
 	{
-		return s_height / 11;
+		return s_width / 11;
 	}
 	else
-		return s_width / 11;
+		return s_height / 11;
 }
 
 
