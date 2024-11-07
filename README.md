@@ -2,8 +2,7 @@
 This game is also known as Tablut, a Viking board game whose rules were recorded in Lapland. It is asymmetric and very quick to play.
 It is played on a 9x9 board:
 
-<img src="https://github.com/user-attachments/assets/245ece4c-fd65-4292-a0e2-ff30cf8656db" width="500" height="500">
-
+<img src="https://github.com/user-attachments/assets/a36b0351-6ad9-47ed-b752-ab34bb81679d" width="500" height="500">
 
 ## The Pieces
 The King: ![Screenshot from 2024-11-06 16-58-46](https://github.com/user-attachments/assets/8ba049e9-dfce-464f-a7d9-41b1641f841c)
