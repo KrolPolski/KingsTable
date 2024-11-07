@@ -26,6 +26,10 @@ The King can assist with captures if paired with another defender. The King cann
 
 ## Controls
 Select the piece you want with the left mouse button. If you change your mind you can either right click anywhere or left click the piece to deselect it. Then click where you want to move.
+
+## OS Requirements
+This was written and tested on Ubuntu Linux and Linux Mint.
+
 ## This project uses SFML. Below are the relevant instructions to compile SFML.
 You'll need to make sure the relevant dependencies are met. Once you have run the two cmake commands mentioned below, you can go to ./build and run make from there. The executable will be at ./build/bin/KingsTable.
 # CMake SFML Project Template
