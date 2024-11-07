@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:12:44 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/07 12:23:35 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:09:51 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,19 @@
 Map::Map(sf::RenderWindow *window)
 {
 	mapWindow = window;
+	font.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSerif.ttf");
+	text.setFont(font);
+	text.setCharacterSize(getSquareSize());
+	text.setFillColor(sf::Color::Red);
+	text.setString("Attackers Turn");
+	text.setPosition(getSquareSize(), 0);
 }
 
 Map::~Map()
 {
 }
 
-void Map::drawBoard(int sel_x, int sel_y, bool pieceSelected, unsigned int square_size)
+void Map::drawBoard(int sel_x, int sel_y, bool pieceSelected)
 {
 	for (size_t i = 0; i < 9; i++)
 	{
@@ -51,7 +57,7 @@ void Map::drawBoard(int sel_x, int sel_y, bool pieceSelected, unsigned int squar
 	if (pieceSelected && sel_x >= 0 && sel_x < 9 && sel_y >= 0 && sel_y < 9)
 		mapWindow->draw(mapSquares[sel_y][sel_x]);
 }
-void Map::drawPieces(unsigned int square_size)
+void Map::drawPieces()
 {
 	std::vector<sf::CircleShape> attackers(16);
 	std::vector<sf::CircleShape> defenders(8);
@@ -157,12 +163,12 @@ bool Map::checkValidPath(int tar_x, int tar_y, int& sel_x, int &sel_y) const
 	}
 }
 
-void Map::highlightLegalMoves(int x, int y, unsigned int square_size)
+void Map::highlightLegalMoves(int x, int y)
 {
 	//add visual indicators later	
 }
 
-bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, unsigned int square_size)
+bool Map::highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
 {
 	int map_x {(x - (static_cast<int> (square_size))) / static_cast<int>(square_size)};
 	int map_y {(y - (static_cast<int> (square_size * 1.5))) / static_cast<int>(square_size)};
@@ -221,7 +227,7 @@ bool Map::checkDefenderVictory(int x, int y)
 }
 
 // pass this the king location after an attacker move.
-bool Map::checkAttackerVictory(int x, int y, unsigned int square_size)
+bool Map::checkAttackerVictory(int x, int y)
 {
 	//Find King
 	int i = 0;
@@ -432,7 +438,7 @@ void Map::checkCapture(int x, int y)
 	
 }*/
 
-bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, unsigned int square_size)
+bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn)
 {
 	int map_x {(x - (static_cast<int>(square_size))) / static_cast<int>(square_size)};
 	int map_y {(y - (static_cast<int>(square_size *1.5))) / static_cast<int>(square_size)};
@@ -449,27 +455,29 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, un
 		sel_y = -1;
 		return false;
 	}
-	std::cout << "map_x: " << map_x << " map_y: "<< map_y << " sel_x: " << sel_x << " sel_y: " << sel_y << std::endl;
+	//std::cout << "map_x: " << map_x << " map_y: "<< map_y << " sel_x: " << sel_x << " sel_y: " << sel_y << std::endl;
 	if ((map_x == sel_x || map_y == sel_y) && (curr_map[map_y][map_x] == '0' || curr_map[map_y][map_x] == 'C'))
 	{
 		if (checkValidPath(map_x, map_y, sel_x, sel_y))
 		{
-			std::cout << "Move is legal, executing" << std::endl;
+			//std::cout << "Move is legal, executing" << std::endl;
 			curr_map[map_y][map_x] = std::toupper(curr_map[sel_y][sel_x]);
 			if (init_map[map_y][map_x] == 'C')
 				curr_map[sel_y][sel_x] = 'C';
 			else
 				curr_map[sel_y][sel_x] = '0';
 			checkDefenderVictory(map_x, map_y);
-			checkAttackerVictory(map_x, map_y, square_size);
+			checkAttackerVictory(map_x, map_y);
 			checkCapture(map_x, map_y);
 			if (turn == Attacker)
 			{
+				text.setString("Defender's Turn");
 				std::cout << "Defender's turn now" << std::endl;
 				turn = Defender;
 			}
 			else if (turn == Defender)
 			{
+				text.setString("Attacker's Turn");
 				std::cout << "Attacker's turn now" << std::endl;
 				turn = Attacker;
 			}
@@ -486,4 +494,13 @@ bool Map::tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, un
 		return (false);
 	}
 	
+}
+
+void Map::setSquareSize(unsigned int sq_size)
+{
+	square_size = sq_size;
+}
+unsigned int Map::getSquareSize()
+{
+	return square_size;
 }

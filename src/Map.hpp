@@ -6,7 +6,7 @@
 /*   By: rboudwin <rboudwin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:03:10 by rboudwin          #+#    #+#             */
-/*   Updated: 2024/11/07 12:05:36 by rboudwin         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:08:21 by rboudwin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,23 @@ private:
 	};
 	sf::RectangleShape mapSquares[9][9];
 	sf::RenderWindow *mapWindow;
+	unsigned int square_size {90};
+	sf::Font font;
+	
 public:
+	sf::Text text;
 	Map(sf::RenderWindow *window);
 	bool checkDefenderVictory(int x, int y);
-	bool checkAttackerVictory(int x, int y, unsigned int square_size);
+	bool checkAttackerVictory(int x, int y);
+	void setSquareSize(unsigned int sq_size);
+	unsigned int getSquareSize();
 	void checkCapture(int x, int y);
 	bool checkValidPath(int tar_x, int tar_y, int& sel_x, int &sel_y) const;
-	void drawBoard(int sel_x, int sel_y, bool pieceSelected, unsigned int square_size);
-	void drawPieces(unsigned int square_size);
-	bool tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, unsigned int square_size);
-	bool highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn, unsigned int square_size);
-	void highlightLegalMoves(int x, int y, unsigned int square_size);
+	void drawBoard(int sel_x, int sel_y, bool pieceSelected);
+	void drawPieces();
+	bool tryMove(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn);
+	bool highlightSquare(int x, int y, int& sel_x, int& sel_y, enum whoseTurn& turn);
+	void highlightLegalMoves(int x, int y);
 	bool unhighlightSquare(int& sel_x, int& sel_y);
 	~Map();
 };

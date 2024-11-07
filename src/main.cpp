@@ -15,18 +15,12 @@ int main()
     sf::RenderWindow window({1000u, 1000u}, "King's Table");
 	unsigned int s_width {1000};
 	unsigned int s_height {1000};
-	unsigned int square_size {1000 / 11};
-	window.setFramerateLimit(144);
 	Map gameMap(&window);
+	window.setFramerateLimit(144);
+	
+	
 	bool pieceSelected {false};
-	sf::Font font;
-	font.loadFromFile("/usr/share/fonts/truetype/freefont/FreeSerif.ttf");
-	sf::Text text;
-	text.setFont(font);
-	text.setCharacterSize(square_size);
-	text.setFillColor(sf::Color::Red);
-	text.setString("Attackers Turn");
-	text.setPosition(square_size, 0);
+	
 				
 
 	enum whoseTurn turn = Attacker;
@@ -47,7 +41,7 @@ int main()
 				{
 					s_width = event.size.width;
 					s_height = event.size.height;
-					square_size = recalc_square(s_width, s_height);
+					gameMap.setSquareSize(recalc_square(s_width, s_height));
 					//this overrides aspect ratio
 					window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
 					std::cout << "new width: " << event.size.width << std::endl;
@@ -58,9 +52,9 @@ int main()
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
 						if (!pieceSelected)
-							pieceSelected = gameMap.highlightSquare(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn, square_size);
+							pieceSelected = gameMap.highlightSquare(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn);
 						else if (pieceSelected)
-							pieceSelected = gameMap.tryMove(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn, square_size);
+							pieceSelected = gameMap.tryMove(event.mouseButton.x, event.mouseButton.y, sel_x, sel_y, turn);
 						if (!pieceSelected)
 							pieceSelected = gameMap.unhighlightSquare(sel_x, sel_y);
 					}
@@ -74,9 +68,9 @@ int main()
 			}
         }
         window.clear(sf::Color::White);
-		gameMap.drawBoard(sel_x, sel_y, pieceSelected, square_size);
-		gameMap.drawPieces(square_size);
-		window.draw(text);
+		gameMap.drawBoard(sel_x, sel_y, pieceSelected);
+		gameMap.drawPieces();
+		window.draw(gameMap.text);
         window.display();
     }
 }
